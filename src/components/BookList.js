@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { removeBook } from '../redux/books/books';
 
 const BookList = (props) => {
-  const { id, title, author } = props;
+  const { id, title, category } = props;
   const dispatch = useDispatch();
+
   const removeBookFromStore = (id) => {
     dispatch(removeBook(id));
   };
@@ -13,7 +14,7 @@ const BookList = (props) => {
   return (
     <div className="books">
       <p>{title}</p>
-      <p>{author}</p>
+      <p>{category}</p>
       <button type="button" onClick={() => removeBookFromStore(id)}>Remove</button>
     </div>
   );
@@ -21,6 +22,6 @@ const BookList = (props) => {
 BookList.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
 };
 export default BookList;
