@@ -1,34 +1,33 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-// import { v4 as uuidv4 } from 'uuid';
-// import { addBook } from '../redux/books/books';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBookFromApi } from '../redux/books/books';
 import BookList from './BookList';
-import AddBooks from './AddBook';
+import AddBook from './AddBook';
 
 const selectBooks = (state) => state.books;
 
 const Books = () => {
-  // const [title, setTitle] = useState('');
-  // const [author, setAuthor] = useState('');
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const newBooks = useSelector(selectBooks);
-
+  useEffect(() => {
+    dispatch(getBookFromApi());
+  }, []);
   return (
     <div>
       <div className="book-list">
         {
             newBooks.map((book) => (
               <BookList
-                key={book.id}
-                id={book.id}
+                key={book.item_id}
+                id={book.item_id}
                 title={book.title}
-                author={book.author}
+                category={book.category}
               />
             ))
          }
 
       </div>
-      <AddBooks />
+      <AddBook />
     </div>
   );
 };
