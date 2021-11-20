@@ -5,13 +5,12 @@ import { addBook } from '../redux/books/books';
 
 const AddBook = () => {
   const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [category] = useState('Fiction');
+  const [category, setCategory] = useState('');
   const dispatch = useDispatch();
 
   const submitBookToStore = (e) => {
     e.preventDefault();
-    if (title === '' || author === '') { return; }
+    if (title === '' || category === 'default') { return; }
     const newBook = {
       item_id: uuidv4(),
       title,
@@ -19,16 +18,22 @@ const AddBook = () => {
     };
     dispatch(addBook(newBook));
     setTitle('');
-    setAuthor('');
+    // setCategory('');
   };
 
   return (
-    <div>
-      <h3>ADD NEW BOOK</h3>
+    <div className="add-book">
+      <h3 className="add-book-title">ADD NEW BOOK</h3>
       <form onSubmit={submitBookToStore}>
-        <input type="text" placeholder="Book title" name="title" onChange={(e) => setTitle(e.target.value)} value={title} />
-        <input type="text" placeholder="Book author" name="author" onChange={(e) => setAuthor(e.target.value)} value={author} />
-        <button type="submit">ADD BOOK</button>
+        <input className="inputs" type="text" placeholder="Book title" name="title" onChange={(e) => setTitle(e.target.value)} value={title} />
+        {/* <input className="inputs"
+        type="text" placeholder="Book author"
+        name="author" onChange={(e) => setAuthor(e.target.value)} value={author} /> */}
+        <select required className="inputs category" name="Category" onChange={(e) => setCategory(e.target.value)}>
+          <option value="" disabled selected>Category</option>
+          <option value="Fiction">Fiction</option>
+        </select>
+        <button className="btn" type="submit">ADD BOOK</button>
       </form>
     </div>
   );
